@@ -10,7 +10,7 @@ import Container from '@material-ui/core/Container';
 import { Link, Redirect } from 'react-router-dom';
 
 import * as actions from '../../../store/actions/index';
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { checkValidity, updateObject } from '../../../utils/updateObject';
 import PasswordInput from '../../../components/UI/PasswordInput/PasswordInput';
 import { makeStyles, Paper } from '@material-ui/core';

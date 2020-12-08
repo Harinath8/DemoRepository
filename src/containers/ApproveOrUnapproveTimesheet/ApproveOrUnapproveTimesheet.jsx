@@ -30,7 +30,7 @@ const ApproveOrUnapproveTimesheet = ({ employeeId, token }) => {
         if (approveUnapproveData) {
             setSelectedTimesheetIds(timesheetLineNos);
         }
-    }, [approveUnapproveData]);
+    }, [approveUnapproveData, timesheetLineNos]);
 
     useEffect(() => {
         if (!isLoading && !error && reqIdentifer === 'APPROVE_UNAPPROVE_TIMESHEET') {
@@ -121,10 +121,6 @@ const ApproveOrUnapproveTimesheet = ({ employeeId, token }) => {
             selectedTimesheetIds
         );
     };
-
-    const closeHandler = () => {
-
-    }
 
     let approveUnapproveTable;
     if (aporunpTimesheetList) {

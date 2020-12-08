@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect, useMemo, Fragment, useCallback } from 'react';
+import React, { useState, useReducer, useEffect, Fragment, useCallback } from 'react';
 import {
     Box,
     Container,
@@ -63,11 +63,13 @@ const Timesheet = ({ employeeId, token }) => {
 
     const [costCenterGroup, setCostCenterGroup] = useState([]);
     const [submitTo, setSubmitTo] = useState([])
+    const [lineNo, setLineNo] = useState(0);
 
-    let lineNo = 0;
-    if (timesheetData) {
-        employeeTimesheet.map((timesheet, index) => lineNo = lineNo + index);
-    }
+    useEffect(() => {
+        if (timesheetData) {
+            employeeTimesheet.map((timesheet, index) => setLineNo(lineNo + index));
+        }
+    }, [timesheetData, employeeTimesheet, lineNo]);
 
     useEffect(() => {
         if (!isLoading && !error && reqIdentifer === 'DELETE_TIMESHEET') {
@@ -81,8 +83,8 @@ const Timesheet = ({ employeeId, token }) => {
     }, [timesheetData, reqIdentifer, isLoading, error, lineNoInt]);
 
     useEffect(() => {
-        sendRequest('/emp/employeeDisplay', { employeeId: employeeId }, token, 'GET_TIMESHEET');
-    }, [sendRequest]);
+        sendRequest('/emp/employeeDisplay', { employeeId }, token, 'GET_TIMESHEET');
+    }, [sendRequest,employeeId,token]);
 
     useEffect(() => {
         const costCenterGroup = async () => {
@@ -91,7 +93,7 @@ const Timesheet = ({ employeeId, token }) => {
             setSubmitTo(data.submit);
         };
         costCenterGroup();
-    }, []);
+    }, [employeeId,token]);
 
     const getProjectNameByProjectCode = async projectCode => {
         const projectName = await getProjectName(projectCode, token);
@@ -111,15 +113,16 @@ const Timesheet = ({ employeeId, token }) => {
     const addNewTimesheet = useCallback(timesheet => {
         console.log(timesheet);
         if(timesheet.LineId) {
-            lineNo = timesheet.LineId;
+            setLineNo(timesheet.LineId);
+            // lineNo = timesheet.LineId;
         }
         sendRequest( 
             '/emp/saveEmployee',
-            { object: { ...timesheet, LineId: lineNo, employeeId: employeeId } },
+            { object: { ...timesheet, LineId: lineNo, employeeId } },
             token,
             'ADD_TIMESHEET'
         );
-    }, [sendRequest]);
+    }, [sendRequest, lineNo, employeeId, token]);
 
     const editTimesheetHandler = editTimesheet => {
         console.log(editTimesheet);
@@ -152,7 +155,7 @@ const Timesheet = ({ employeeId, token }) => {
             'DELETE_TIMESHEET',
             timesheet.LineNo_Int
         );
-    }, [sendRequest]);
+    }, [sendRequest,token]);
 
     const handleClickOpen = () => {
         setShowAddTimesheet(true);

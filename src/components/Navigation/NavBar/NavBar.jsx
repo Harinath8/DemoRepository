@@ -142,7 +142,7 @@ export default function NavBar(props) {
                             <MenuIcon />
                         </IconButton>
                     </div>
-                    <Link to="/" className={classes.link}>
+                    <Link to="/home" className={classes.link}>
                         <Typography className={classes.title} variant="h6" noWrap>
                             Employee Timesheet
                         </Typography>
