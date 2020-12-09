@@ -11,8 +11,8 @@ import { Link } from 'react-router-dom';
 import HomeIcon from '@material-ui/icons/Home';
 import { Avatar, Collapse } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
-import LocalDiningIcon from '@material-ui/icons/LocalDining';
+import ListAltIcon from '@material-ui/icons/ListAlt';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 const useStyles = makeStyles((theme) => ({
   sectionMobile: {
@@ -73,7 +73,7 @@ export default function SideDrawer(props) {
           <ListItemIcon><Avatar className={classes.avatar}>
             <AccountCircle />
           </Avatar></ListItemIcon>
-          <ListItemText primary="User" />
+          <ListItemText primary="Employee" />
           {open ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
@@ -81,17 +81,17 @@ export default function SideDrawer(props) {
             <Link className={classes.link} to="/employeeTimesheet">
               <ListItem button key="Register" className={classes.nested} onClick={props.closed}>
                 <ListItemIcon>
-                  <PermContactCalendarIcon color="primary" />
+                  <ListAltIcon color="primary" />
                 </ListItemIcon>
-                <ListItemText primary="Details" />
+                <ListItemText primary="Timesheet" />
               </ListItem>
             </Link>
             <Link className={classes.link} to="/approveorUnapprove">
               <ListItem button className={classes.nested} onClick={props.closed}>
                 <ListItemIcon>
-                  <LocalDiningIcon color="primary" />
+                  <CheckCircleIcon color="primary" />
                 </ListItemIcon>
-                <ListItemText primary="Orders" />
+                <ListItemText primary="Approve/Unapprove Timesheet" />
               </ListItem>
             </Link>
           </List>

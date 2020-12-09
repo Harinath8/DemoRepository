@@ -73,8 +73,6 @@ const initialState = {
 const SignIn = (props) => {
     const classes = useStyles();
 
-    document.title="Sign In"
-
     const [loginForm, setLoginForm] = useState(initialState);
     const [showPassword, setShowPassword] = useState(false);
 

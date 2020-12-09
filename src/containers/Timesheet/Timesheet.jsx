@@ -68,9 +68,9 @@ const Timesheet = ({ employeeId, token }) => {
 
     useEffect(() => {
         if (timesheetData) {
-            employeeTimesheet.map((timesheet, index) => setLineNo(lineNo + index));
+            employeeTimesheet.map((timesheet, index) => setLineNo(lineNo => lineNo + index));
         }
-    }, [timesheetData, employeeTimesheet, lineNo]);
+    }, [timesheetData, employeeTimesheet]);
 
     useEffect(() => {
         if (!isLoading && !error && reqIdentifer === 'DELETE_TIMESHEET') {
@@ -182,6 +182,9 @@ const Timesheet = ({ employeeId, token }) => {
 
     return (
         <Fragment>
+            <Helmet>
+                <title>Timesheet</title>
+            </Helmet>
             <Container maxWidth={false} className={classes.root}>
                 <Box mt={3}>
                     <TimesheetTable
